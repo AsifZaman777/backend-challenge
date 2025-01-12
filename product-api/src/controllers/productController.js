@@ -64,17 +64,50 @@ const getProducts = async (req, res) => {
   }
 };
 
-//filter products by id,name,price
+//filter products by id,name,
+
+//url http://localhost:5000/api/products/id/:id
+const getProductByID = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id).populate("categoryId", "name").exec();
+        if (!product) return res.status(404).json({ message: "Product not found" });
+        res.status(200).json({ ...product.toObject() });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error fetching product", error: error.message });
+    }
+}
+
+//filter products by name  //url http://localhost:5000/api/products/name/:name
+const getProductByName = async (req, res) => {
+    try {
+        const { name } = req.params;
+        const product = await Product.findOne({ name: name }).populate("categoryId", "name").exec();
+        if (!product) return res.status(404).json({ message: "Product not found" });
+        res.status(200).json({ ...product.toObject() });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error fetching product", error: error.message });
+    }
+}
+
+
+
+
 
 /**
  * Update a product's details (status, description, discount).
  */
+
+//url http://localhost:5000/api/products/update/:id
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { status, description, discount } = req.body;
   
   try {
     const product = await Product.findById(id);
+    console.log(product);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
     if (status) product.status = status;
@@ -88,4 +121,4 @@ const updateProduct = async (req, res) => {
   }
 };
 
-module.exports = { createProduct, getProducts, updateProduct };
+module.exports = { createProduct, getProducts, getProductByID,getProductByName,updateProduct };
