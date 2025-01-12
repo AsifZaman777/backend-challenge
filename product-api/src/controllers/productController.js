@@ -100,11 +100,10 @@ const getProductByName = async (req, res) => {
  * Update a product's details (status, description, discount).
  */
 
-//url http://localhost:5000/api/products/update/:id
+
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { status, description, discount } = req.body;
-  
   try {
     const product = await Product.findById(id);
     console.log(product);
