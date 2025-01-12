@@ -141,18 +141,18 @@ const getProductByDiscount = async (req, res) => {
 const getProductByCategory = async (req, res) => {
   try {
     const { category } = req.params;
-    const categoryObj = await Category.findOne
-    ({ name: category });
-    if (!categoryObj) return res.status(404).json({ message: "Category not found" });
-    const products = await Product.find
-    ({ categoryId: categoryObj._id })
+    const categoryObj = await Category.findOne({
+      name: { $regex: category, $options: "i" },
+    });
+    if (!categoryObj)
+      return res.status(404).json({ message: "Category not found" });
+    const products = await Product.find({ categoryId: categoryObj._id })
       .populate("categoryId", "name")
       .exec();
     if (!products)
       return res.status(404).json({ message: "Product not found" });
     res.status(200).json(products);
-  }
-  catch (error) {
+  } catch (error) {
     res
       .status(500)
       .json({ message: "Error fetching product", error: error.message });
