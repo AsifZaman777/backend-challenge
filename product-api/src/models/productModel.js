@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
@@ -24,8 +24,8 @@ const productSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['In Stock', 'Stock Out'],
-      default: 'In Stock',
+      enum: ["In Stock", "Stock Out"],
+      default: "In Stock",
     },
     productCode: {
       type: String,
@@ -34,11 +34,11 @@ const productSchema = new mongoose.Schema(
     },
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
+      ref: "Category",
       required: true,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model("Product", productSchema);

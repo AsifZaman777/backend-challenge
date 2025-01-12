@@ -1,5 +1,5 @@
 const express = require('express');
-const { createCategory, getCategories,getCategoryByName } = require('../controllers/categoryController');
+const { createCategory, getCategories,getCategoryByName} = require('../controllers/categoryController');
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.post('/create', createCategory);
 router.get('/', getCategories);
 //filter category by name
 router.get('/:name', getCategoryByName);
+
 
 
 

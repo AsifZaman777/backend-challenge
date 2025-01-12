@@ -60,6 +60,8 @@ const getCategoryByName = async (req, res) => {
       res.status(500).json({ message: "Error fetching category", error: error.message });
     }
   };
+
+
   
 module.exports = { createCategory, getCategories, getCategoryByName };
 
